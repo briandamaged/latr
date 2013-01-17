@@ -19,8 +19,6 @@ class LMap(object):
       yield self.map_function(item)
 
 
-
-
 class LFilter(object):
   def __init__(self, filter_function):
     self.filter_function = filter_function
@@ -43,6 +41,21 @@ class Cycle(object):
       for item in self.__memory:
         yield item
 
+
+
+class BatchesOf(object):
+  def __init__(self, size):
+    self.size = size
+
+  def __call__(self, iterable):
+    while True:
+      batch = []
+      for x in xrange(self.size):
+        batch.append(iterable.next())
+      yield batch
+
+
+
 class Rupy(object):
   def __init__(self, iterable):
     self.iterable = iter(iterable)
@@ -64,3 +77,7 @@ def lmap(map_function, iterable):
 
 def lfilter(filter_function, iterable):
   return LFilter(filter_function)(iterable)
+
+def cycle(iterable):
+  return Cycle()(iterable)
+
