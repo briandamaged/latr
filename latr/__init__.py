@@ -10,7 +10,7 @@ def identity(iterable):
     yield item
 
 
-class LMap(object):
+class Map(object):
   def __init__(self, map_function):
     self.map_function = map_function
 
@@ -19,7 +19,7 @@ class LMap(object):
       yield self.map_function(item)
 
 
-class LFilter(object):
+class Filter(object):
   def __init__(self, filter_function):
     self.filter_function = filter_function
 
