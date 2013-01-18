@@ -56,7 +56,7 @@ class BatchesOf(object):
 
 
 
-class Rupy(object):
+class latr(object):
   def __init__(self, iterable):
     self.iterable = iter(iterable)
 
@@ -66,8 +66,8 @@ class Rupy(object):
   def __iter__(self):
     return self
 
-  def __lshift__(self, consumer):
-    return Rupy(consumer(self.iterable))
+  def __rshift__(self, consumer):
+    return latr(consumer(self.iterable))
 
 
 
