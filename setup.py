@@ -1,12 +1,12 @@
 from setuptools import setup
 
 setup(
-    name = 'rupy',
+    name = 'latr',
     version = '0.0.1',
-    description = 'Ruby-style iterators... for Python!',
+    description = 'Lazy Iterator Chains for Python',
     author = 'Brian Lauber',
     author_email = 'constructible.truth@gmail.com',
-    packages = ['rupy'],
+    packages = ['latr'],
     test_suite = 'tests',
 )
 
