@@ -79,6 +79,12 @@ class BatchesOf(object):
 
 
 
+def Chain(iterable):
+  for data in iterable:
+    for value in data:
+      yield value
+
+
 class latr(object):
   def __init__(self, iterable):
     self.iterable = iter(iterable)
