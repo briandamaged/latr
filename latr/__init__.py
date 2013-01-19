@@ -43,16 +43,39 @@ class Cycle(object):
 
 
 
+def discard_leftovers(leftovers, size):
+  return None
+
+
+def include_leftovers(leftovers, size):
+  return leftovers
+
+class pad_leftovers_with(object):
+  def __init__(self, value):
+    self.value = value
+
+  def __call__(self, leftovers, size):
+    padding = [self.value] * (size - len(leftovers))
+    return leftovers + padding
+
+
 class BatchesOf(object):
-  def __init__(self, size):
+  def __init__(self, size, on_leftovers = discard_leftovers):
     self.size = size
+    self.on_leftovers = on_leftovers
 
   def __call__(self, iterable):
-    while True:
-      batch = []
-      for x in xrange(self.size):
-        batch.append(iterable.next())
-      yield batch
+    try:
+      while True:
+        batch = []
+        for x in xrange(self.size):
+          batch.append(iterable.next())
+        yield tuple(batch)
+    except StopIteration:
+      if len(batch) > 0:
+        batch = self.on_leftovers(batch, self.size)
+        if batch:
+          yield tuple(batch)
 
 
 
