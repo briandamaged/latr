@@ -1,10 +1,4 @@
 
-def empty():
-  """
-  Returns an empty iterator
-  """
-  return iter(())
-
 def identity(iterable):
   for item in iterable:
     yield item
