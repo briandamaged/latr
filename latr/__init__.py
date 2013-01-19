@@ -23,17 +23,14 @@ class Filter(object):
         yield item
 
 
-class Cycle(object):
-  def __init__(self):
-    self.__memory = []
-
-  def __call__(self, iterable):
-    for item in iterable:
-      self.__memory.append(item)
+def Cycle(iterable):
+  memory = []
+  for item in iterable:
+    memory.append(item)
+    yield item
+  while True:
+    for item in memory:
       yield item
-    while True:
-      for item in self.__memory:
-        yield item
 
 
 
@@ -100,7 +97,4 @@ def lmap(map_function, iterable):
 
 def lfilter(filter_function, iterable):
   return LFilter(filter_function)(iterable)
-
-def cycle(iterable):
-  return Cycle()(iterable)
 
