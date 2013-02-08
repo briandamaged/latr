@@ -50,4 +50,49 @@ class Test_latr(TestCase):
     self.assertFalse(m.called)
     self.assertEqual(l.next(), 0)
     self.assertTrue(m.called)
-    
+
+
+  def test_peek_raises_StopIteration_when_there_are_not_more_items(self):
+    l = Latr([])
+    self.assertRaises(StopIteration, l.peek)
+  
+  
+  def test_peek_returns_the_same_item_until_next_is_called(self):
+    l = Latr([1, 2, 3])
+    self.assertEqual(l.peek(), 1)
+    self.assertEqual(l.peek(), 1)
+    self.assertEqual(l.next(), 1)
+    self.assertEqual(l.peek(), 2)
+    self.assertEqual(l.next(), 2)
+    self.assertEqual(l.peek(), 3)
+    self.assertEqual(l.peek(), 3)
+
+  def test_is_empty_returns_True_when_there_are_no_more_items(self):
+    l = Latr([])
+    self.assertTrue(l.is_empty)
+  
+  
+  def test_is_empty_returns_False_when_there_are_more_items(self):
+    l = Latr([1])
+    self.assertFalse(l.is_empty)
+
+
+  def test_is_empty_does_not_move_the_item_iterator(self):
+    l = Latr([1])
+    l.is_empty
+    self.assertEqual(l.next(), 1)
+
+  def test_has_next_returns_False_when_there_are_no_more_items(self):
+    l = Latr([])
+    self.assertFalse(l.has_next)
+
+  def test_has_next_returns_True_when_there_are_more_items(self):
+    l = Latr([1, 2, 3])
+    self.assertTrue(l.has_next)
+
+  def test_has_next_does_not_move_the_iterator(self):
+    l = Latr([1])
+    l.has_next
+    self.assertEqual(l.next(), 1)
+
+

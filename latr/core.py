@@ -4,15 +4,46 @@
 class Latr(object):
   def __init__(self, iterable):
     self.iterable = iter(iterable)
+    
+    self.__next_value = None
+    self.__next_value_ready = False
+  
+  
+  def peek(self):
+    if self.__next_value_ready:
+      return self.__next_value
+    else:
+      self.__next_value = self.iterable.next()
+      self.__next_value_ready = True
+      return self.__next_value
 
   def next(self):
-    return self.iterable.next()
+    retval = self.peek()
+    self.__next_value_ready = False
+    return retval
+
+  @property
+  def is_empty(self):
+    try:
+      self.peek()
+      return False
+    except StopIteration:
+      return True
+
+  @property
+  def has_next(self):
+    try:
+      self.peek()
+      return True
+    except StopIteration:
+      return False
+
 
   def __iter__(self):
     return self
 
   def __rshift__(self, consumer):
-    return latr(consumer(self.iterable))
+    return Latr(consumer(self))
 
 
 def latr(iterable):
