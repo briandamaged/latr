@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'latr',
-    version = '0.1.1',
+    version = '0.1.2',
     description = 'Lazy Iterator Chains',
     author = 'Brian Lauber',
     author_email = 'constructible.truth@gmail.com',
