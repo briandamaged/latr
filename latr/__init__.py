@@ -61,12 +61,12 @@ class BatchesOf(object):
         batch = []
         for x in xrange(self.size):
           batch.append(iterable.next())
-        yield tuple(batch)
+        yield batch
     except StopIteration:
       if len(batch) > 0:
         batch = self.on_leftovers(batch, self.size)
         if batch:
-          yield tuple(batch)
+          yield batch
 
 
 
