@@ -1,4 +1,6 @@
-from latr.core import Latr
+from latr.core import Latr, clone_each
+
+from collections import Iterator
 
 from unittest import TestCase
 from mock import MagicMock
@@ -94,5 +96,28 @@ class Test_latr(TestCase):
     l = Latr([1])
     l.has_next
     self.assertEqual(l.next(), 1)
+
+
+
+class Test_clone_each(TestCase):
+  def test_it_returns_an_iterator(self):
+    result = clone_each([1, 2, 3])
+    self.assertTrue(isinstance(result, Iterator))
+    
+  def test_it_returns_a_copy_of_each_item(self):
+    items = [
+      {"numbers" : [1, 2, 3]},
+      {"I'm" : "awesome", "how" : "are you?"},
+      ["bob", "dole"]
+    ]
+    
+    retval = clone_each(items)
+    for r in retval:
+      # Values are the same
+      self.assertTrue(r in items)
+      
+      # But the id's are different
+      original_item = items[items.index(r)]
+      self.assertNotEqual(id(r), id(original_item))
 
 

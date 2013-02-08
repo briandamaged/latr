@@ -90,3 +90,14 @@ def cycle(iterable):
     for item in memory:
       yield item
 
+
+
+def clone_each(iterable):
+  """
+  Creates a deepcopy of each item in the iterable.  This is useful
+  when you want to protect the original data from side-effects.
+  """
+  from copy import deepcopy
+  for item in iterable:
+    yield deepcopy(item)
+
