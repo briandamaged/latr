@@ -1,4 +1,12 @@
+"""
+This library provides support for lazily-evaluated
+iterator chains.
+"""
 
+__all__ = [
+  "latr", "Map", "Select", "Reject", "Filter", "cycle",
+  "chain", "clone_each"
+]
 
 
 class Latr(object):
@@ -63,7 +71,7 @@ class Map(object):
       yield self.map_function(item)
 
 
-class Filter(object):
+class Select(object):
   def __init__(self, filter_function):
     self.filter_function = filter_function
 
@@ -71,6 +79,21 @@ class Filter(object):
     for item in iterable:
       if self.filter_function(item):
         yield item
+
+# An alias for people who prefer the Python nomenclature
+Filter = Select
+
+
+class Reject(object):
+  def __init__(self, filter_function):
+    self.filter_function = filter_function
+
+  def __call__(self, iterable):
+    for item in iterable:
+      if not self.filter_function(item):
+        yield item
+
+
 
 
 
