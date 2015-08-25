@@ -12,7 +12,7 @@ __all__ = [
 class Latr(object):
   def __init__(self, iterable):
     self.iterable = iter(iterable)
-    
+
     self.__next_value = None
     self.__next_value_ready = False
   
